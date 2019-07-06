@@ -1,11 +1,11 @@
 // Set up Controller.  Activity 16
-var express = require("express");
-var router = express.Router();
+// var express = require("express");
+// var router = express.Router();
 var db= require("../models");
 
-// module.exports = function(app) {
+module.exports = function(app) {
 
-router.get("/", function(req, res) {
+app.get("/", function(req, res) {
     db.Burger.findAll({}) 
       .then(function(data) {
           var hbsObject = {
@@ -19,7 +19,7 @@ router.get("/", function(req, res) {
       });
   });
 
-router.post("/", function(req, res) {
+app.post("/", function(req, res) {
     console.log(req.body);
         db.Burger.create({
           burger_name: req.body.burger_name,
@@ -33,7 +33,7 @@ router.post("/", function(req, res) {
       });
     });
 
-router.put("/:id", function(req, res) {
+app.put("/:id", function(req, res) {
   db.Burger.update({
       devoured: req.body.devoured
     }, {
@@ -49,7 +49,7 @@ router.put("/:id", function(req, res) {
       });
 });
 
-router.delete("/:id", function(req, res) {
+app.delete("/:id", function(req, res) {
     db.Burger.destroy({
         where: {
         id: req.params.id
@@ -62,6 +62,6 @@ router.delete("/:id", function(req, res) {
       res.json(err)
     });
 });
-// }
+}
 
-module.exports = router;
+// module.exports = router;
